@@ -7,6 +7,10 @@ import api from "./dataStore/stubAPI";
 
 class App extends Component {
     state = { search: "", gender: "all" };
+    deleteContact = (key) => {
+        api.delete(key);
+        this.setState({});
+    };
     componentDidMount() {
         request.get("https://randomuser.me/api/?results=50").end((error, res) => {
             if (res) {
@@ -24,7 +28,8 @@ class App extends Component {
             <div className="jumbotron">
                 <Header noContacts={contacts.length} />
                 <FilterControls />
-                <ContactList contacts={contacts} />
+                <ContactList contacts={contacts}
+                             deleteHandler={this.deleteContact} />
             </div>
         );
     }
